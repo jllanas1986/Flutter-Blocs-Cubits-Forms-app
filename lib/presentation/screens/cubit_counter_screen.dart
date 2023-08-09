@@ -15,22 +15,29 @@ class CubitCouterScreen extends StatelessWidget {
 class _CubitCounterView extends StatelessWidget {
   const _CubitCounterView();
 
+  void increaseCounterBy(BuildContext context, [int value = 1]) {
+    context.read<CounterCubit>().increaseBy(value);
+  }
+
   @override
   Widget build(BuildContext context) {
 
-    final counterState = context.watch<CounterCubit>().state;
+    //final counterState = context.watch<CounterCubit>().state;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cubit Counter: ${counterState.transactionCount}'),
+        //title: Text('Cubit Counter: ${counterState.transactionCount}'),
         actions: [
           IconButton(
-              onPressed: () => {}, icon: const Icon(Icons.refresh_outlined))
+              onPressed: () => {context.read<CounterCubit>().reset()},
+              icon: const Icon(Icons.refresh_outlined))
         ],
       ),
       body: Center(
         child: BlocBuilder<CounterCubit, CounterState>(
           //buildWhen: (previous, current) => current.counter != previous.counter,
           builder: (context, state) {
+            print('counter ha cambiado');
             return Text('Counter value: ${state.counter}');
           },
         ),
@@ -39,17 +46,23 @@ class _CubitCounterView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
-              heroTag: '1', child: const Text('+3'), onPressed: () => {}),
+              heroTag: '1',
+              child: const Text('+3'),
+              onPressed: () => increaseCounterBy(context, 3)),
           const SizedBox(
             height: 15,
           ),
           FloatingActionButton(
-              heroTag: '2', child: const Text('+2'), onPressed: () => {}),
+              heroTag: '2',
+              child: const Text('+2'),
+              onPressed: () => increaseCounterBy(context, 2)),
           const SizedBox(
             height: 15,
           ),
           FloatingActionButton(
-              heroTag: '3', child: const Text('+1'), onPressed: () => {})
+              heroTag: '3',
+              child: const Text('+1'),
+              onPressed: () => increaseCounterBy(context)),
         ],
       ),
     );
