@@ -21,60 +21,87 @@ class _RegisterView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const SafeArea(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10),
-        child: SingleChildScrollView(
-          child: Column(
+        child: Padding(
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      child: SingleChildScrollView(
+        child: Column(
             //mainAxisAlignment: MainAxisAlignment.end,
             children: [
-
               FlutterLogo(size: 100),
-
               _RegisterForm(),
-
               SizedBox(height: 20),
-            ]
-          ),
-        ),
-      )
-    );
+            ]),
+      ),
+    ));
   }
 }
 
-class _RegisterForm extends StatelessWidget {
+class _RegisterForm extends StatefulWidget {
   const _RegisterForm();
+
+  @override
+  State<_RegisterForm> createState() => _RegisterFormState();
+}
+
+class _RegisterFormState extends State<_RegisterForm> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  String username = '';
+  String email = '';
+  String password = '';
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      child: Column(
-        children: [
+        key: _formKey,
+        child: Column(
+          children: [
+            CustomTextFormField(
+                label: 'Nombre de ususario',
+                onChange: (value) => username = value,
+                validator: (value) {
+                  if (value == null || value.isEmpty) return 'Campo requerido';
+                  if (value.trim().isEmpty) return 'Campo requerido';
+                  if (value.length < 6) return 'Mas de 6 letras';
+                  return null;
+                }),
+            const SizedBox(height: 10),
 
-          const CustomTextFormField(
-            label: 'Nombre de ususario',
-          ),
-          const SizedBox(height: 10),
+            CustomTextFormField(
+                label: 'Correo Electrónico',
+                onChange: (value) => email = value,
+                validator: (value) {
+                  if (value == null || value.isEmpty) return 'Campo requerido';
+                  if (value.trim().isEmpty) return 'Campo requerido';
+                  final emailRegExp =
+                      RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                  if (!emailRegExp.hasMatch(value))
+                    return 'No tiene formato de correo';
+                    return null;
+                }),
+            const SizedBox(height: 10),
 
-          const CustomTextFormField(
-            label: 'Correo Electrónico',
-          ),
+            CustomTextFormField(
+              label: 'Contraseña',
+              obscureText: true,
+              onChange: (value) => password = value,
+              validator: (value) {
+                  if (value == null || value.isEmpty) return 'Campo requerido';
+                  if (value.trim().isEmpty) return 'Campo requerido';
+                  if (value.length < 6) return 'Mas de 6 letras';
+                  return null;
+                }
+            ),
+            const SizedBox(height: 20),
+            FilledButton.tonalIcon(
+                onPressed: () {
+                  final isValid = _formKey.currentState!.validate();
+                  if (!isValid) return;
 
-          const SizedBox(height: 10),
-
-          const CustomTextFormField(
-            label: 'Contraseña',
-            obscureText: true,
-          ),
-
-          const SizedBox(height: 20),
-
-          FilledButton.tonalIcon(
-            onPressed: () {},
-            icon: const Icon(Icons.save),
-            label: const Text('Crear usuario')
-          ),
-
-        ],
-      ));
+                  print('$username, $email, $password');
+                },
+                icon: const Icon(Icons.save),
+                label: const Text('Crear usuario')),
+          ],
+        ));
   }
 }
