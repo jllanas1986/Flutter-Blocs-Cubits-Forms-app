@@ -55,16 +55,16 @@ class _RegisterForm extends StatelessWidget {
       children: [
         CustomTextFormField(
           label: 'Nombre de ususario',
-          onChange: registerCubit.usernameChange,
-          errorMessage: username.isPure || username.isValid
-            ? null
-            : 'Usuario no válido',
+          onChange: registerCubit.usernameChanged,
+          errorMessage: username.errorMessage,
         ),
         const SizedBox(height: 10),
+
+
         CustomTextFormField(
             label: 'Correo Electrónico',
             onChange: (value) {
-              registerCubit.emailChange(value);
+              registerCubit.emailChanged(value);
             },
             validator: (value) {
               if (value == null || value.isEmpty) return 'Campo requerido';
@@ -75,18 +75,14 @@ class _RegisterForm extends StatelessWidget {
               return null;
             }),
         const SizedBox(height: 10),
+        
+
         CustomTextFormField(
-            label: 'Contraseña',
-            obscureText: true,
-            onChange: (value) {
-              registerCubit.passwordChange(value);
-            },
-            validator: (value) {
-              if (value == null || value.isEmpty) return 'Campo requerido';
-              if (value.trim().isEmpty) return 'Campo requerido';
-              if (value.length < 6) return 'Mas de 6 letras';
-              return null;
-            }),
+          label: 'Contraseña',
+          obscureText: true,
+          onChange: registerCubit.passwordChanged,
+          errorMessage: password.errorMessage,
+        ),
         const SizedBox(height: 20),
         FilledButton.tonalIcon(
             onPressed: () {
