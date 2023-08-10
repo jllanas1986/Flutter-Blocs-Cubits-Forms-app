@@ -50,10 +50,21 @@ class _RegisterForm extends StatelessWidget {
       child: Column(
         children: [
 
-          CustomTextFormField(),
+          const CustomTextFormField(
+            label: 'Nombre de ususario',
+          ),
           const SizedBox(height: 10),
-          
-          CustomTextFormField(),
+
+          const CustomTextFormField(
+            label: 'Correo Electrónico',
+          ),
+
+          const SizedBox(height: 10),
+
+          const CustomTextFormField(
+            label: 'Contraseña',
+            obscureText: true,
+          ),
 
           const SizedBox(height: 20),
 
