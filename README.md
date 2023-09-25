@@ -22,7 +22,9 @@ Blocs gestiona el estado de la misma forma que Cubits pero con la diferencia de 
 ![logo](./assets/blocs%20files.png)
 
 ## Funcionalidad 🛠️
+[cubit & bloc](https://github.com/jllanas1986/Flutter-Blocs-Cubits-Forms-app/assets/122029674/8a284e28-95c7-4e3a-931e-f8307ef048d4)
 
+[form](https://github.com/jllanas1986/Flutter-Blocs-Cubits-Forms-app/assets/122029674/4500ab4b-d56d-4434-8bbd-0f7daf2d4e75)
 
 
 ## Recursos 📚
