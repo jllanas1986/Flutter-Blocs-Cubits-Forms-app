@@ -26,6 +26,10 @@ Blocs gestiona el estado de la misma forma que Cubits pero con la diferencia de 
 
 
 
+[cubit_bloc](https://github.com/jllanas1986/Flutter-Blocs-Cubits-Forms-app/assets/122029674/59aa4161-34b8-466f-9de2-6668369757f1)
+
+
+
 
 
 
